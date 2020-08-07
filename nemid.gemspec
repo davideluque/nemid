@@ -11,6 +11,6 @@ Gem::Specification.new do |s|
                     "lib/nemid/crypto.rb",
                     "lib/nemid/login.rb"
                   ]
-  s.homepage    = 'https://github.com/davideluque/nemid-ruby'
-  s.metadata    = { "source_code_uri" => "https://github.com/davideluque/nemid-ruby" }
+  s.homepage    = 'https://github.com/davideluque/nemid'
+  s.metadata    = { "source_code_uri" => "https://github.com/davideluque/nemid" }
 end
