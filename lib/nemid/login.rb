@@ -38,7 +38,6 @@ module NemID
       {
         "TimeStamp": Time.now.utc.to_s,
         "ClientFlow": "OCESLOGIN2",
-        "Signtext_Format": "html",
         "SP_cert": sp_cert,
       }
     end
