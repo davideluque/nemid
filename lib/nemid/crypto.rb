@@ -14,13 +14,17 @@ module NemID
     Base64.strict_encode64(@pkcs12.certificate.to_der)
   end
 
+  def base64_encoded_digest_representation(data)
+    Base64.strict_encode64(digest(data))
+  end
+
   def base64_encoded_rsa_signature(data)
     Base64.strict_encode64(sign(data))
   end
 
   private
   def digest(data)
-    OpenSSL::Digest::SHA256.new(data)
+    OpenSSL::Digest::SHA256.new.digest(data)
   end
 
   def read_file(certificate)
