@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
                   ]
   s.homepage    = 'https://github.com/davideluque/nemid'
   s.metadata    = { "source_code_uri" => "https://github.com/davideluque/nemid" }
+
+  s.add_runtime_dependency 'openssl', '~> 2.2', '>= 2.2.0'
 end
