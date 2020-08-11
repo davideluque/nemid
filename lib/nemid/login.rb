@@ -1,3 +1,5 @@
+require 'date'
+
 module NemID
   class Login
 
@@ -42,7 +44,7 @@ module NemID
       {
         "CLIENTFLOW": "OCESLOGIN2",
         "SP_CERT": sp_cert,
-        "TIMESTAMP": DateTime.now.utc.strftime('%F %T%z'),
+        "TIMESTAMP": DateTime.now.new_offset(0).strftime('%F %T%z'),
       }
     end
   end
