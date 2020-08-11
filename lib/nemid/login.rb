@@ -10,8 +10,8 @@ module NemID
       normalized_unsigned_params = normalize(unsigned_params)
       
       params.merge({
-        "Digest_signature": digest_signature(normalized_unsigned_params),
-        "Params_Digest": params_digest(normalized_unsigned_params),
+        "DIGEST_SIGNATURE": digest_signature(normalized_unsigned_params),
+        "PARAMS_DIGEST": params_digest(normalized_unsigned_params),
       })
     end
 
@@ -21,9 +21,9 @@ module NemID
     end
 
     def normalize(params)
-      params = params.transform_keys(&:downcase)
+      params = params.transform_keys(&:upcase)
       
-      str = ''
+      str = String.new
       
       params.keys.sort.each { |k| str += "#{k.to_s}#{params[k]}" }
 
@@ -40,9 +40,9 @@ module NemID
 
     def unsigned_params
       {
-        "TimeStamp": Time.now.utc.to_s,
-        "ClientFlow": "OCESLOGIN2",
-        "SP_cert": sp_cert,
+        "CLIENTFLOW": "OCESLOGIN2",
+        "SP_CERT": sp_cert,
+        "TIMESTAMP": DateTime.now.utc.strftime('%F %T%z'),
       }
     end
   end
