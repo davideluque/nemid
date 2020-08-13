@@ -10,6 +10,30 @@ module NemID
              @ssl_cert_key_file = ssl_cert_key
         end
 
+        def pid_cpr_match
+            @cpr ||= nil
+            @soap_client = soap_client
+
+            response = @soap_client.call(:pid,
+                message: {
+                    :pIDRequests => {
+                        :PIDRequest => {
+                            PID: @pid,
+                            CPR: @cpr,
+                            serviceId: @spid,
+                        }
+                    }
+                }
+            )  
+
+            result = response.to_hash[:pid_response][:result][:pid_reply]
+            
+            if result[:status_code] == "0"
+                result[:cpr]
+            else
+                logger.warn "PID match failed with status code #{result[:status_code]}"
+            end
+        end
 
         private
         def soap_client
@@ -27,5 +51,8 @@ module NemID
             client
         end
 
+        def logger
+            Rails.logger
+        end
     end 
 end
