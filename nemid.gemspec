@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.files       = [
                     "lib/nemid.rb",
                     "lib/nemid/crypto.rb",
-                    "lib/nemid/login.rb"
+                    "lib/nemid/login.rb",
+                    "lib/nemid/pid_cpr.rb"
                   ]
   s.homepage    = 'https://github.com/davideluque/nemid'
   s.metadata    = { "source_code_uri" => "https://github.com/davideluque/nemid" }
