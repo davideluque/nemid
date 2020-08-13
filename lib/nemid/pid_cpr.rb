@@ -31,7 +31,7 @@ module NemID
             if result[:status_code] == "0"
                 result[:cpr]
             else
-                logger.warn "PID match failed with status code #{result[:status_code]}"
+                "PID match failed with status code #{result[:status_code]}"
             end
         end
 
@@ -49,10 +49,6 @@ module NemID
               }
             client = Savon.client(options)
             client
-        end
-
-        def logger
-            Rails.logger
         end
     end 
 end
