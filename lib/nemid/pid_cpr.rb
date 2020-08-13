@@ -1,3 +1,5 @@
+require 'savon'
+
 module NemID
     class PidCpr
 
