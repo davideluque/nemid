@@ -47,7 +47,7 @@ module NemID
             if result[:status_code] == "0"
                 result
             else
-                "PID match failed with status code #{result[:status_code]}"
+                "PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
             end
         end
 
