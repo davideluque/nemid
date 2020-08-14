@@ -16,4 +16,5 @@ Gem::Specification.new do |s|
   s.metadata    = { "source_code_uri" => "https://github.com/davideluque/nemid" }
 
   s.add_runtime_dependency 'openssl', '~> 2.2', '>= 2.2.0'
+  s.add_runtime_dependency 'savon', '~> 2.12.0', '>=2.12.0'
 end
