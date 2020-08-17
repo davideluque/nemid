@@ -1,4 +1,4 @@
-# Nemid
+# NemID
 
 NemID is a Ruby gem that makes it easy to integrate the NemID JavaScript client with ruby applications.
 
@@ -39,4 +39,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Nemid project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/davideluque/nemid/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the NemID project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/davideluque/nemid/blob/master/CODE_OF_CONDUCT.md).

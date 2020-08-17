@@ -1,5 +1,5 @@
 require "nemid/version"
 
-module Nemid
+module NemID
   class Error < StandardError; end
 end
