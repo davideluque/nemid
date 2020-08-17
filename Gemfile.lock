@@ -2,12 +2,16 @@ PATH
   remote: .
   specs:
     nemid (0.1.0)
+      nokogiri (~> 1.11.0.rc2, >= 1.11.0.rc2)
       openssl (~> 2.2, >= 2.2.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.4.4)
+    mini_portile2 (2.5.0)
+    nokogiri (1.11.0.rc2)
+      mini_portile2 (~> 2.5.0)
     openssl (2.2.0)
     rake (12.3.3)
     rspec (3.9.0)
