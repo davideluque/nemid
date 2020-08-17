@@ -1,4 +1,5 @@
 require "nemid/version"
+require "nemid/authentication"
 require "nemid/crypto"
 
 module NemID
