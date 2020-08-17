@@ -1,6 +1,5 @@
 module NemID
   module Authentication
-    class ResponseError < StandardError; end
   end
 end
 
