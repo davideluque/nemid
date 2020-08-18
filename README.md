@@ -29,14 +29,13 @@ parameters and response handling.
 
 Generate client initialization parameters
 
-
 ```ruby
-nemid = NemID::Authentication::Parameters.new
-  certificate: 'path/to/certificate', # Rails.env.nemid[:certificate]
-  pass: 'your_voces_certificate_password', # Rails.env.nemid[:pass]
+nemid = NemID::Authentication::Parameters.new(
+  'path/to/your/voces/certificate',
+  'your_voces_certificate_password',
 )
 
-nemid.client_initialization_parameters # returns a ruby hash with parameters
+nemid.client_initialization_parameters # ruby hash with signed parameters
 ```
 
 ## Development
