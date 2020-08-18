@@ -4,6 +4,7 @@ PATH
     nemid (0.1.0)
       nokogiri (~> 1.11.0.rc2, >= 1.11.0.rc2)
       openssl (~> 2.2, >= 2.2.0)
+      xmldsig (~> 0.6.6, >= 0.6.6)
 
 GEM
   remote: https://rubygems.org/
@@ -27,6 +28,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
+    xmldsig (0.6.6)
+      nokogiri (>= 1.6.8, < 2.0.0)
 
 PLATFORMS
   ruby
