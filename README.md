@@ -20,7 +20,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem implements one main module:
+
+- `Authentication`: the purpose of this module is to generate client initialization 
+parameters and response handling.
+
+### Authentication::Parameters
+
+Generate client initialization parameters
+
+```ruby
+nemid = NemID::Authentication::Parameters.new(
+  'path/to/your/voces/certificate',
+  'your_voces_certificate_password',
+)
+
+nemid.client_initialization_parameters # ruby hash with signed parameters
+```
 
 ## Development
 
