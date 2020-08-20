@@ -6,7 +6,7 @@ module NemID
       end
     end
 
-    class CAN001Error < ResponseError
+    class CAN001Error < CANError
       def initialize(msg="Redirect the user to a sensible place, taking into " \
         "account where the user is in the flow.")
         @da = "Du har afbrudt aktiveringen efter du har brugt den midlertidige adgangskode. " \
@@ -23,7 +23,7 @@ module NemID
       end
     end
 
-    class CAN002Error < ResponseError
+    class CAN002Error < CANError
       def initialize(msg="The service provider must send the user to a sensible " \
         "place, taking into account where the user is in the flow.")
         @da = "Du har afbrudt login."
@@ -32,7 +32,7 @@ module NemID
       end
     end
 
-    class CAN003Error < ResponseError
+    class CAN003Error < CANError
       def initialize
         @da = "Forbindelsen til applikationen er timet ud eller er blevet " \
         "afbrudt af en anden app. Forsøg igen."
@@ -42,7 +42,7 @@ module NemID
       end
     end
 
-    class CAN004Error < ResponseError
+    class CAN004Error < CANError
       def initialize
         @da = "Sessionen er afbrudt. Forsøg igen."
         @en = "The session is cancelled. Please try again."
@@ -50,7 +50,7 @@ module NemID
       end
     end
 
-    class CAN005Error < ResponseError
+    class CAN005Error < CANError
       def initialize
         @da = "Det tog for lang tid, før du godkendte den anmodning, du havde " \
         "sendt til din nøgleapp"
@@ -60,7 +60,7 @@ module NemID
       end
     end
 
-    class CAN006Error < ResponseError
+    class CAN006Error < CANError
       def initialize
         @da = "Du kan højst have ##MAXACTIVENMAS## aktive nøgleapps ad gangen. " \
         "Hvis du vil aktivere en ny nøgleapp, skal du først spærre en af dine " \
@@ -73,7 +73,7 @@ module NemID
       end
     end
 
-    class CAN007Error < ResponseError
+    class CAN007Error < CANError
       def initialize
         @da = "Du har afvist din anmodning om godkendelse i din nøgleapp. Hvis " \
         "det var en fejl, kan du sende en ny anmodning, når du har afsluttet ved " \
@@ -84,7 +84,7 @@ module NemID
       end
     end
 
-    class CAN008Error < ResponseError
+    class CAN008Error < CANError
       def initialize(msg="User should be notified and could have a choice to restart transaction")
         @da = "Du har sendt en ny anmodning til godkendelse i din nøgleapp, som " \
         "overskriver en eksisterende."
