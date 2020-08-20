@@ -11,7 +11,7 @@ module NemID
     end
     
     class APP001Error < APPError
-      def initialize(msg="Fix the integration issue. [JS Client: See tool at" \
+      def initialize(msg="Fix the integration issue. [JS Client: See tool at " \
         "/developers/validateparameters.jsp]")
         super
       end
@@ -29,14 +29,14 @@ module NemID
     class APP004Error < APPError; end
 
     class APP007Error < APPError
-      def initialize(msg="Fix the integration issue. [JS Client: See tool at" \
+      def initialize(msg="Fix the integration issue. [JS Client: See tool at " \
         "/developers/validateparameters.jsp]")
         super
       end
     end      
 
     class APP008Error < APPError
-      def initialize(msg="Fix the integration issue. [JS Client: See tool at" \
+      def initialize(msg="Fix the integration issue. [JS Client: See tool at " \
         "/developers/validateparameters.jsp]")
         super
       end
