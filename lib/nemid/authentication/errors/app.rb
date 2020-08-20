@@ -21,7 +21,8 @@ module NemID
       class APP002Error < APPError
         def initialize(msg="Correct the sign text. [JS Client: See tool at " \
           "/developers/signtextviewer.jsp]")
-        super
+          super
+        end
       end
 
       class APP003Error < APPError; end 
