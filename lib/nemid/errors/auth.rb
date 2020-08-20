@@ -155,5 +155,23 @@ module NemID
         super
       end
     end
+
+    class AUTH019Error < AUTHError
+      def initialize(msg='')
+        @da = "Det er ikke muligt at logge ind med nøglekort, brug anden løsning " \
+        "nøgleapp eller nøgleviser."
+        @en = "It is not possible to login with a code card, please use a code app " \
+        "or code token."
+        super
+      end
+    end
+
+    class AUTH020Error < AUTHError
+      def initialize(msg='Retry with 2-factor login for user.')
+        @da = "Kunne ikke logge ind med 1-faktor, prøv med 2-faktor login."
+        @en = "Unable to login with 1-factor, please try with 2-factor login"
+        super
+      end
+    end
   end
 end
