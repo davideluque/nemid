@@ -1,9 +1,7 @@
 module NemID
-  module Authentication
-    module Errors
-      class ResponseError < StandardError
-        attr_reader :da, :en
-      end
+  module Errors
+    class ResponseError < StandardError
+      attr_reader :da, :en
     end
   end
 end
