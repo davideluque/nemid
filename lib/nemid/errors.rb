@@ -8,6 +8,6 @@ end
 
 require_relative "errors/app"
 require_relative "errors/auth"
-#require_relative "errors/can"
+require_relative "errors/can"
 #require_relative "errors/capp"
 #require_relative "errors/lock"
