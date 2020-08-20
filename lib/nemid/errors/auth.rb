@@ -1,8 +1,8 @@
 module NemID
   module Errors
     class AUTHError < ResponseError
-      @@da_support_url = '[https://www.nemid.nu/dk-da/support/faa_hjaelp_til_nemid/kontakt/]'
-      @@en_support_url = '[https://www.nemid.nu/dk-en/support/contact/]'
+      DA_SUPPORT_URL = '[https://www.nemid.nu/dk-da/support/faa_hjaelp_til_nemid/kontakt/]'
+      EN_SUPPORT_URL = '[https://www.nemid.nu/dk-en/support/contact/]'
       
       def initialize(msg="The service provider is recommended to refer the user " \
         "to NemID support.")  
@@ -13,9 +13,9 @@ module NemID
     class AUTH001Error < AUTHError
       def initialize
         @da = "Dit NemID er spærret. Kontakt NemID support " \
-        "#{@@da_support_url}."
+        "#{DA_SUPPORT_URL}."
         @en = "Your NemID is blocked. Please contact NemID support. " \
-        "#{@@en_support_url}"
+        "#{EN_SUPPORT_URL}"
         super
       end
     end
@@ -43,9 +43,9 @@ module NemID
     class AUTH005Error < AUTHError
       def initialize
         @da = "Dit NemID er spærret. Kontakt NemID support " \
-        "#{@@da_support_url}."
+        "#{DA_SUPPORT_URL}."
         @en = "Your NemID has been blocked. Please contact NemID support. " \
-        "#{@@en_support_url}"
+        "#{EN_SUPPORT_URL}"
         super
       end
     end
@@ -65,9 +65,9 @@ module NemID
     class AUTH007Error < AUTHError
       def initialize
         @da = "Din NemID-adgangskode er spærret på grund af for mange fejlede forsøg. " \
-        "Kontakt NemID support #{@@da_support_url}."
+        "Kontakt NemID support #{DA_SUPPORT_URL}."
         @en = "Your NemID password is blocked due to too many failed password attempts. " \
-        "Please contact NemID support. #{@@en_support_url}"
+        "Please contact NemID support. #{EN_SUPPORT_URL}"
         super
       end
     end
@@ -76,10 +76,10 @@ module NemID
       def initialize
         @da = "Dit NemID er ikke aktivt og du skal bestille en ny midlertidig " \
         "adgangskode til aktivering hos support. Ring til NemID support " \
-        "#{@@da_support_url}."
+        "#{DA_SUPPORT_URL}."
         @en = "Your NemID is not active and you need support to issue a new " \
         "activation password to activate. Please call NemID support. " \
-        "#{@@en_support_url}"
+        "#{EN_SUPPORT_URL}"
         super
       end
     end
@@ -109,11 +109,11 @@ module NemID
       def initialize(msg='')
         @da = "NemID på mobil understøtter ikke brug af midlertidig adgangskode. " \
         "Kontakt NemID support for atfå en ny kode udstedt. " \
-        "#{@@da_support_url}" \
+        "#{DA_SUPPORT_URL}" \
         "Prøv derefter igen."
         @en = "NemID login on mobile does not support authentication using a " \
         "temporary password. Please contact NemID support to have a new temporary " \
-        "password issued. #{@@en_support_url} " \
+        "password issued. #{EN_SUPPORT_URL} " \
         "Thereafter, please try again."
         super
       end
