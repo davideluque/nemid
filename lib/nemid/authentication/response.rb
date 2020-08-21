@@ -7,28 +7,15 @@ module NemID
       def initialize(string)
         if string.match?(/\A[A-Za-z0-9+\/\r\n]+={0,2}\z/)
           decoded_string = Base64.decode64(string)
-          
           if decoded_string.start_with? '<?xml'
             @doc = NemID::XMLDSig::Document.new(decoded_string)
           else
-            # if hash is like {"APP001": APP001Error (ErrorClass)} (KEY,CLASS) then:
-            #raise ResponseError(ERROR_SET[decoded_string])
-            # ^ sounds like too heavy for memory
-            
-            # if hash is {"APP001": BASE64_OF_APP001} then:
-            #err_class = eval("#{decoded_string}Error") if ERROR_SET.key?(decoded_string)
-            raise ResponseError#(err_class)
-            
-            # Also thought about using an arrray 
-            # see https://stackoverflow.com/questions/32234733/javascript-what-lookup-is-faster-array-indexof-vs-object-hash
-            # and https://stackoverflow.com/questions/5551168/performance-of-arrays-and-hashes-in-ruby
-            # but then found... hybrid of Array's intuitive inter-operation facilities and Hash's fast lookup
-            # -> https://ruby-doc.org/stdlib-2.7.1/libdoc/set/rdoc/Set.html
+            raise error(decoded_string)
           end
         elsif string.start_with? '<?xml'
           @doc = NemID::XMLDSig::Document.new(string)
         else
-          raise ResponseError
+          raise NemID::Errors::ResponseError
         end
       end
 
@@ -57,6 +44,22 @@ module NemID
       end
 
       private
+      def class_exists?(class_name)
+        klass = Module.const_get(class_name)
+        return klass.is_a?(Class)
+      rescue NameError
+        return false
+      end
+
+      def error(str)
+        klass = "NemID::Errors::#{str}Error"
+        if class_exists?(klass)
+          return eval(klass) 
+        else
+          return NemID::Errors::ResponseError
+        end
+      end
+
       def serial_number
         @serial_number ||= @doc.extract_pid_or_rid
       end
