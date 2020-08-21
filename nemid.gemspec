@@ -12,7 +12,9 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
+  spec.add_dependency 'nokogiri', '~> 1.11.0.rc2', '>= 1.11.0.rc2'
   spec.add_dependency 'openssl', '~> 2.2', '>= 2.2.0'
+  spec.add_dependency 'xmldsig', '~> 0.6.6', '>= 0.6.6'
 
   spec.metadata["allowed_push_host"] = "http://rubygems.org"
 

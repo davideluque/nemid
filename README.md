@@ -38,6 +38,34 @@ nemid = NemID::Authentication::Parameters.new(
 nemid.client_initialization_parameters # ruby hash with signed parameters
 ```
 
+### Authentication::Response
+
+Parse nemid response and extract user information from certificate. Right now,
+it is only possible to extract the PID (or RID).
+
+```ruby
+response = NemID::Authentication::Response.new(base64_str) # Base64 string from NemID
+
+# or
+
+response = NemID::Authentication::Response.new(xml_str) # XML string from NemID
+
+# Extract PID or RID
+response.extract_pid_or_rid # "PID:9208-2002-2-316380231171"
+
+# Has PID?
+response.has_pid? # true
+
+# Extract PID
+response.extract_pid # "9208-2002-2-316380231171"
+
+# Has RID?
+response.has_rid? # false
+
+# Extract RID
+response.extract_rid # nil
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
