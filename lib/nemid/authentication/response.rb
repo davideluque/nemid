@@ -38,6 +38,17 @@ module NemID
         serial_number.match?(RID_REGEX)
       end
 
+      def validate_response
+        validate_signature
+        #validate_certificate_chain
+        #check_certificate_not_expired
+        #check_certificae_not_revoked
+      end
+
+      def validate_signature
+        @doc.validate_signature
+      end
+
       private
       def serial_number
         @serial_number ||= @doc.extract_pid_or_rid

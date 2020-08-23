@@ -5,7 +5,7 @@ module NemID
     class Document < Xmldsig::SignedDocument
 
       def extract_pid_or_rid
-        user_certificate = get_user_certificate
+        @user_certificate ||= get_user_certificate
         return user_certificate.subject.to_a.assoc("serialNumber")[1]
       end
 
@@ -16,6 +16,11 @@ module NemID
           
           return cert if (cert_key_usage =~ /Digital Signature/)
         end
+      end
+      
+      def validate_signature
+        @user_certificate ||= get_user_certificate
+        validate(@user_certificate)
       end
       
       private
