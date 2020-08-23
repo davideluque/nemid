@@ -3,6 +3,8 @@ module NemID
     class Response
       PID_REGEX = /\APID:([0-9-]+)\Z/.freeze
       RID_REGEX = /\ARID:([0-9-]+)\Z/.freeze
+      
+      attr_reader :doc
 
       def initialize(string)
         if string.start_with? '<?xml'
@@ -39,14 +41,10 @@ module NemID
       end
 
       def validate_response
-        validate_signature
-        #validate_certificate_chain
+        @doc.validate_signature
+        @doc.validate_certificate_chain
         #check_certificate_not_expired
         #check_certificae_not_revoked
-      end
-
-      def validate_signature
-        @doc.validate_signature
       end
 
       private
