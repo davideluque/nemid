@@ -3,7 +3,7 @@ require 'uri'
 
 module NemID
   module OCSP
-    def self.request(issuer, intermediate, subject)
+    def self.request(subject, issuer, ca)
       digest = OpenSSL::Digest::SHA1.new
       certificate_id = OpenSSL::OCSP::CertificateId.new(subject, issuer, digest)
 
@@ -22,11 +22,8 @@ module NemID
       response = OpenSSL::OCSP::Response.new http_response.body
       response_basic = response.basic
 
-      puts response_basic
+      return false if !response_has_valid_signature?(response_basic, subject, issuer, ca)
 
-      #puts "valid sig"
-      #return false if !response_has_valid_signature?(response_basic, issuer, intermediate, subject)
-      
       single_response = response_basic.find_response(certificate_id)
 
       return false if !response_has_status_and_is_valid?(single_response)
@@ -64,13 +61,13 @@ module NemID
       return check_validity(single_response)
     end
 
-    def self.response_has_valid_signature?(response_basic, issuer, intermediate, subject)
+    def self.response_has_valid_signature?(response_basic, subject, issuer, ca)
       store = OpenSSL::X509::Store.new
       store.add_cert(subject)
-      store.add_cert(intermediate)
       store.add_cert(issuer)
+      store.add_cert(ca)
 
-      unless response_basic.verify [intermediate], store then
+      unless response_basic.verify [], store then
         return false
       end
 
