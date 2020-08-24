@@ -31,15 +31,15 @@ module NemID
             @soap_client = soap_client
 
             response = @soap_client.call(:pid,
-                message: {
-                    :pIDRequests => {
-                        :PIDRequest => {
-                            PID: pid,
-                            CPR: cpr,
-                            serviceId: @spid,
-                        }
-                    }
+              message: {
+                :pIDRequests => {
+                  :PIDRequest => {
+                    PID: pid,
+                    CPR: cpr,
+                    serviceId: @spid,
+                  }
                 }
+              }
             )  
 
             result = response.to_hash[:pid_response][:result][:pid_reply]
@@ -55,13 +55,13 @@ module NemID
         private
         def soap_client
             options = {
-                :wsdl => "#{PID_SERVICE_URL}?WSDL",
-                :soap_version => 1,
-                :endpoint => PID_SERVICE_URL,
-                :convert_request_keys_to => :none,
-                :ssl_cert_file => @cert,
-                :ssl_cert_key_file => @key,
-                :headers => { 'SOAPAction' => ''}
+              :wsdl => "#{PID_SERVICE_URL}?WSDL",
+              :soap_version => 1,
+              :endpoint => PID_SERVICE_URL,
+              :convert_request_keys_to => :none,
+              :ssl_cert_file => @cert,
+              :ssl_cert_key_file => @key,
+              :headers => { 'SOAPAction' => ''}
             }
             return Savon.client(options)
         end
