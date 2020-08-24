@@ -4,12 +4,10 @@ module NemID
     class PIDCPR
         PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
-        def initialize(spid, cpr, pid, cert, key)
+        def initialize(spid, cert, key)
             @spid = spid
-            @pid = pid
             @cert = cert
             @key = key
-            @cpr = cpr
         end
 
 =begin
@@ -28,16 +26,16 @@ module NemID
     8195 = MISSING_CLIENT_CERT ("Klient certifikat ikke præsenteret", "No client certificate presented") 
     16384 = INTERNAL_ERROR ("Intern DanID fejl", "Internal DanID error")
 =end
-        def pid_cpr_match 
-            @cpr ||= nil
+        def match(pid, cpr)
+            cpr ||= nil
             @soap_client = soap_client
 
             response = @soap_client.call(:pid,
                 message: {
                     :pIDRequests => {
                         :PIDRequest => {
-                            PID: @pid,
-                            CPR: @cpr,
+                            PID: pid,
+                            CPR: cpr,
                             serviceId: @spid,
                         }
                     }
