@@ -4,10 +4,9 @@ module NemID
     class PIDCPR
         PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
-        def initialize(spid, cert, key)
+        def initialize(spid, cert, pass)
+          @crypto = NemID::Crypto.new(cert, pass)
           @spid = spid
-          @cert = cert
-          @key = key
         end
 
 =begin
@@ -30,18 +29,23 @@ module NemID
             cpr ||= nil
             @soap_client = soap_client
 
-            response = @soap_client.call(:pid,
-              message: {
-                :pIDRequests => {
-                  :PIDRequest => {
-                    PID: pid,
-                    CPR: cpr,
-                    serviceId: @spid,
+            begin
+              response = @soap_client.call(:pid,
+                message: {
+                  :pIDRequests => {
+                    :PIDRequest => {
+                      PID: pid,
+                      CPR: cpr,
+                      serviceId: @spid,
+                    }
                   }
                 }
-              }
-            )  
-
+              )
+            rescue Savon::HTTPError => e
+              delete_cert_files
+              return e
+            end
+          
             result = response.to_hash[:pid_response][:result][:pid_reply]
             
             if result[:status_code] == "0"
@@ -50,20 +54,32 @@ module NemID
               result
               #"PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
             end
+            delete_cert_files
         end
 
         private
         def soap_client
+            create_cert_files
             options = {
               :wsdl => "#{PID_SERVICE_URL}?WSDL",
               :soap_version => 1,
               :endpoint => PID_SERVICE_URL,
               :convert_request_keys_to => :none,
-              :ssl_cert_file => @cert,
-              :ssl_cert_key_file => @key,
+              :ssl_cert_file => "cert-file.pem",
+              :ssl_cert_key_file => "key-file.pem",
               :headers => { 'SOAPAction' => ''}
             }
             return Savon.client(options)
+        end
+
+        def create_cert_files 
+          open("cert-file.pem", "w") do |io| io.write(@crypto.pkcs12.certificate.to_pem) end
+          open("key-file.pem", "w") do |io| io.write(@crypto.pkcs12.key.private_to_pem) end
+        end
+
+        def delete_cert_files
+          File.delete("cert-file.pem") if File.exists?("cert-file.pem")
+          File.delete("key-file.pem") if File.exists?("key-file.pem")
         end
     end 
 end
