@@ -1,7 +1,7 @@
 require 'savon'
 
 module NemID
-    class PidCpr
+        PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
         def initialize(spid, cpr, pid, cert, key)
             @spid = spid
@@ -55,11 +55,10 @@ module NemID
 
         private
         def soap_client
-            pid_service_url = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
             options = {
-                :wsdl => "#{pid_service_url}?WSDL",
+                :wsdl => "#{PID_SERVICE_URL}?WSDL",
                 :soap_version => 1,
-                :endpoint => pid_service_url,
+                :endpoint => PID_SERVICE_URL,
                 :convert_request_keys_to => :none,
                 :ssl_cert_file => @cert,
                 :ssl_cert_key_file => @key,
