@@ -5,9 +5,9 @@ module NemID
         PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
         def initialize(spid, cert, key)
-            @spid = spid
-            @cert = cert
-            @key = key
+          @spid = spid
+          @cert = cert
+          @key = key
         end
 
 =begin
@@ -45,10 +45,10 @@ module NemID
             result = response.to_hash[:pid_response][:result][:pid_reply]
             
             if result[:status_code] == "0"
-                result
+              result
             else
-                result
-                #"PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
+              result
+              #"PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
             end
         end
 
