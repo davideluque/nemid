@@ -18,6 +18,10 @@ module NemID
         return @user_certificate
       end
 
+      def user_certificate_expired?
+        @user_certificate.not_after < Time.now.utc
+      end
+
       def validate_certificate_chain
         @store.verify(@user_certificate)
       end

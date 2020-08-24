@@ -43,7 +43,7 @@ module NemID
       def validate_response
         @doc.validate_signature
         @doc.validate_certificate_chain
-        #check_certificate_not_expired
+        @doc.user_certificate_expired?
         #check_certificae_not_revoked
       end
 
