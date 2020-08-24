@@ -2,7 +2,8 @@ require 'openssl'
 
 module NemID
  class Crypto
-  
+  attr_accessor :pkcs12
+
   def initialize(certificate, pass)
     certificate = read_file(certificate)
     @pkcs12 = read_pkcs12(certificate, pass)
