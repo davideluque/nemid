@@ -40,11 +40,23 @@ module NemID
         serial_number.match?(RID_REGEX)
       end
 
-      def validate_response
-        @doc.validate_signature
-        @doc.validate_certificate_chain
+      def user_certificate_expired?
         @doc.user_certificate_expired?
+      end
+
+      def validate_certificate_chain
+        @doc.validate_certificate_chain
+      end
+
+      def validate_response
+        validate_signature
+        validate_certificate_chain
+        user_certificate_expired?
         #check_certificae_not_revoked
+      end
+
+      def validate_signature
+        @doc.validate_signature
       end
 
       private
