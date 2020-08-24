@@ -1,6 +1,7 @@
 require 'savon'
 
 module NemID
+    class PIDCPR
         PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
         def initialize(spid, cpr, pid, cert, key)
@@ -64,8 +65,7 @@ module NemID
                 :ssl_cert_key_file => @key,
                 :headers => { 'SOAPAction' => ''}
             }
-            client = Savon.client(options)
-            client
+            return Savon.client(options)
         end
     end 
 end
