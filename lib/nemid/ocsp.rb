@@ -3,6 +3,16 @@ require 'uri'
 
 module NemID
   module OCSP
+    class OCSPError < StandardError ; end
+    
+    class InvalidSignatureError < OCSPError ; end
+
+    class NoStatusError < OCSPError ; end
+
+    class InvalidUpdateError < OCSPError ; end
+
+    class NonceError < OCSPError ; end
+
     def self.request(subject, issuer, ca)
       digest = OpenSSL::Digest::SHA1.new
       certificate_id = OpenSSL::OCSP::CertificateId.new(subject, issuer, digest)
@@ -22,13 +32,13 @@ module NemID
       response = OpenSSL::OCSP::Response.new http_response.body
       response_basic = response.basic
 
-      return false if !response_has_valid_signature?(response_basic, subject, issuer, ca)
+      response_has_valid_signature?(response_basic, subject, issuer, ca)
 
       single_response = response_basic.find_response(certificate_id)
 
-      return false if !response_has_status_and_is_valid?(single_response)
+      response_has_status_and_is_valid?(single_response)
 
-      return false if request.check_nonce(response_basic) == 0
+      raise NonceError if request.check_nonce(response_basic) == 0
 
       return cert_status(single_response)
     end
@@ -47,7 +57,7 @@ module NemID
 
     def self.check_validity(single_response)
       unless single_response.check_validity
-        return false
+        raise InvalidUpdateError
       end
       
       return true
@@ -55,7 +65,7 @@ module NemID
 
     def self.response_has_status_and_is_valid?(single_response)
       unless single_response
-        return false
+        raise NoStatusError
       end
 
       return check_validity(single_response)
@@ -68,7 +78,7 @@ module NemID
       store.add_cert(ca)
 
       unless response_basic.verify [], store then
-        return false
+        raise InvalidSignatureError
       end
 
       return true
