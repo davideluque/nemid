@@ -24,7 +24,7 @@ module NemID
 
       def user_certificate_revoked?
         !NemID::OCSP.request(@user_certificate, @intermediate_cert, @root_cert)
-      rescue NemID::OCSPError
+      rescue NemID::OCSP::Error
         return true
       end
 

@@ -3,15 +3,15 @@ require 'uri'
 
 module NemID
   module OCSP
-    class OCSPError < StandardError ; end
+    class Error < StandardError ; end
     
-    class InvalidSignatureError < OCSPError ; end
+    class InvalidSignatureError < Error ; end
 
-    class NoStatusError < OCSPError ; end
+    class NoStatusError < Error ; end
 
-    class InvalidUpdateError < OCSPError ; end
+    class InvalidUpdateError < Error ; end
 
-    class NonceError < OCSPError ; end
+    class NonceError < Error ; end
 
     def self.request(subject, issuer, ca)
       digest = OpenSSL::Digest::SHA1.new
