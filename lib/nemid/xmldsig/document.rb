@@ -22,6 +22,10 @@ module NemID
         @user_certificate.not_after < Time.now.utc
       end
 
+      def user_certificate_revoked?
+        NemID::OCSP.request(@user_certificate, @intermediate_cert, @root_cert)
+      end
+
       def validate_certificate_chain
         @store.verify(@user_certificate)
       end
@@ -43,7 +47,11 @@ module NemID
           
           if (cert_key_usage =~ /Digital Signature/)
             @user_certificate = cert
+          elsif cert.issuer.cmp(cert.subject) == 0
+            @root_cert = cert
+            @store.add_cert(cert)
           else
+            @intermediate_cert = cert
             @store.add_cert(cert)
           end
         end
