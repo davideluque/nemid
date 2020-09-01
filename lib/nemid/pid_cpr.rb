@@ -29,32 +29,27 @@ module NemID
             cpr ||= nil
             @soap_client = soap_client
 
-            begin
-              response = @soap_client.call(:pid,
-                message: {
-                  :pIDRequests => {
-                    :PIDRequest => {
-                      PID: pid,
-                      CPR: cpr,
-                      serviceId: @spid,
-                    }
+            
+            response = @soap_client.call(:pid,
+              message: {
+                :pIDRequests => {
+                  :PIDRequest => {
+                    PID: pid,
+                    CPR: cpr,
+                    serviceId: @spid,
                   }
                 }
-              )
-            rescue Savon::HTTPError => e
-              delete_cert_files
-              return e
-            end
+              }
+            )
+            delete_cert_files
           
             result = response.to_hash[:pid_response][:result][:pid_reply]
             
             if result[:status_code] == "0"
               result
             else
-              result
-              #"PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
+              "PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
             end
-            delete_cert_files
         end
 
         private
