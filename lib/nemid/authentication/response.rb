@@ -5,12 +5,17 @@ module NemID
       RID_REGEX = /\ARID:([0-9-]+)\Z/.freeze
 
       def initialize(string)
-        if string.start_with? '<?xml'
+        if string.match?(/\A[A-Za-z0-9+\/\r\n]+={0,2}\z/)
+          decoded_string = Base64.decode64(string)
+          if decoded_string.start_with? '<?xml'
+            @doc = NemID::XMLDSig::Document.new(decoded_string)
+          else
+            raise error(decoded_string)
+          end
+        elsif string.start_with? '<?xml'
           @doc = NemID::XMLDSig::Document.new(string)
-        elsif string.match?(/\A[A-Za-z0-9+\/\r\n]+={0,2}\z/)
-          @doc = NemID::XMLDSig::Document.new(Base64.decode64(string))
         else
-          raise NemID::Authentication::ResponseError
+          raise NemID::Errors::ResponseError
         end
       end
 
@@ -39,6 +44,22 @@ module NemID
       end
 
       private
+      def class_exists?(class_name)
+        klass = Module.const_get(class_name)
+        return klass.is_a?(Class)
+      rescue NameError
+        return false
+      end
+
+      def error(str)
+        klass = "NemID::Errors::#{str}Error"
+        if class_exists?(klass)
+          return eval(klass) 
+        else
+          return NemID::Errors::ResponseError
+        end
+      end
+
       def serial_number
         @serial_number ||= @doc.extract_pid_or_rid
       end
