@@ -30,10 +30,12 @@ module NemID
 
       def validate_certificate_chain
         @store.verify(@user_certificate)
+        # raise InvalidCertificateChain if not @store.verify(@user_certificate)
       end
       
       def validate_signature
         validate(@user_certificate)
+        # raise InvalidSignature if not validate(@user_certificate)
       end
       
       private
