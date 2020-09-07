@@ -1,13 +1,13 @@
 require 'savon'
 
 module NemID
-    class PIDCPR
-        PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
+  class PIDCPR
+    PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
 
-        def initialize(spid, cert, pass)
-          @crypto = NemID::Crypto.new(cert, pass)
-          @spid = spid
-        end
+    def initialize(spid, cert, pass)
+      @crypto = NemID::Crypto.new(cert, pass)
+      @spid = spid
+    end
 
 =begin
     STATUS CODE RESPONSES:
@@ -25,44 +25,43 @@ module NemID
     8195 = MISSING_CLIENT_CERT ("Klient certifikat ikke præsenteret", "No client certificate presented") 
     16384 = INTERNAL_ERROR ("Intern DanID fejl", "Internal DanID error")
 =end
-        def match(pid, cpr)
-            cpr ||= nil
-            @soap_client = soap_client
+    def match(pid, cpr)
+      cpr ||= nil
+      @soap_client = soap_client
 
-            
-            response = @soap_client.call(:pid,
-              message: {
-                :pIDRequests => {
-                  :PIDRequest => {
-                    PID: pid,
-                    CPR: cpr,
-                    serviceId: @spid,
-                  }
-                }
-              }
-            )
-          
-            result = response.to_hash[:pid_response][:result][:pid_reply]
-            
-            if result[:status_code] == "0"
-              result
-            else
-              "PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
-            end
-        end
-
-        private
-        def soap_client
-            options = {
-              :wsdl => "#{PID_SERVICE_URL}?WSDL",
-              :soap_version => 1,
-              :endpoint => PID_SERVICE_URL,
-              :convert_request_keys_to => :none,
-              :ssl_cert => @crypto.get_certificate,
-              :ssl_cert_key => @crypto.get_key,
-              :headers => { 'SOAPAction' => ''}
+      response = @soap_client.call(:pid,
+        message: {
+          :pIDRequests => {
+            :PIDRequest => {
+              PID: pid,
+              CPR: cpr,
+              serviceId: @spid,
             }
-            return Savon.client(options)
-        end
-    end 
+          }
+        }
+      )
+    
+      result = response.to_hash[:pid_response][:result][:pid_reply]
+      
+      if result[:status_code] == "0"
+        result
+      else
+        "PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
+      end
+    end
+
+    private
+    def soap_client
+      options = {
+        :wsdl => "#{PID_SERVICE_URL}?WSDL",
+        :soap_version => 1,
+        :endpoint => PID_SERVICE_URL,
+        :convert_request_keys_to => :none,
+        :ssl_cert => @crypto.get_certificate,
+        :ssl_cert_key => @crypto.get_key,
+        :headers => { 'SOAPAction' => ''}
+      }
+      return Savon.client(options)
+    end
+  end 
 end
