@@ -26,19 +26,8 @@ module NemID
     16384 = INTERNAL_ERROR ("Intern DanID fejl", "Internal DanID error")
 =end
     def match(pid, cpr)
-      cpr ||= nil
-      @soap_client = soap_client
-
-      response = @soap_client.call(:pid,
-        message: {
-          :pIDRequests => {
-            :PIDRequest => {
-              PID: pid,
-              CPR: cpr,
-              serviceId: @spid,
-            }
-          }
-        }
+      response = soap_client.call(:pid,
+        message: build_soap_message(pid: pid, cpr: cpr)
       )
     
       result = response.to_hash[:pid_response][:result][:pid_reply]
@@ -51,6 +40,18 @@ module NemID
     end
 
     private
+    def build_soap_message pid:, cpr:
+      {
+        :pIDRequests => {
+          :PIDRequest => {
+            PID: pid,
+            CPR: cpr,
+            serviceId: @spid,
+          }
+        }
+      }
+    end
+
     def soap_client
       options = {
         :wsdl => "#{PID_SERVICE_URL}?WSDL",
