@@ -25,7 +25,7 @@ module NemID
     8195 = MISSING_CLIENT_CERT ("Klient certifikat ikke præsenteret", "No client certificate presented") 
     16384 = INTERNAL_ERROR ("Intern DanID fejl", "Internal DanID error")
 =end
-    def match(pid, cpr)
+    def match pid:, cpr:
       response = soap_client.call(:pid,
         message: build_soap_message(pid: pid, cpr: cpr)
       )
