@@ -20,10 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-This gem implements one main module:
+This gem implements two main modules:
 
 - `Authentication`: the purpose of this module is to generate client initialization 
 parameters and response handling.
+
+- `PIDCPR`: to match PID to a CPR number. Translation is only available to
+selected service providers.
 
 ### Authentication::Parameters
 
@@ -64,6 +67,24 @@ response.has_rid? # false
 
 # Extract RID
 response.extract_rid # nil
+```
+
+### PIDCPR
+
+Match a PID to a CPR number.
+
+```ruby
+pid_cpr = NemID::PIDCPR.new(
+  'your_service_provider_id',
+  'path/to/your/voces/certificate',
+  'your_voces_certificate_password'
+)
+
+pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423')
+
+# To complete:
+# - what is the expected result?
+# - how is the error going to be handled? raising a class error?
 ```
 
 ## Development
