@@ -33,9 +33,9 @@ module NemID
       result = response.to_hash[:pid_response][:result][:pid_reply]
       
       if result[:status_code] == "0"
-        result
+        true
       else
-        "PID match failed with status code #{result[:status_code]} - #{result[:status_text_uk]}"
+        false
       end
     end
 
