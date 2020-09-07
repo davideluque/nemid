@@ -80,10 +80,11 @@ pid_cpr = NemID::PIDCPR.new(
   'your_voces_certificate_password'
 )
 
-pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423')
+pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423') # true
+
+# In case of no match, false is returned.
 
 # To complete:
-# - what is the expected result?
 # - how is the error going to be handled? raising a class error?
 ```
 
