@@ -41,7 +41,6 @@ module NemID
                 }
               }
             )
-            delete_cert_files
           
             result = response.to_hash[:pid_response][:result][:pid_reply]
             
@@ -54,27 +53,16 @@ module NemID
 
         private
         def soap_client
-            create_cert_files
             options = {
               :wsdl => "#{PID_SERVICE_URL}?WSDL",
               :soap_version => 1,
               :endpoint => PID_SERVICE_URL,
               :convert_request_keys_to => :none,
-              :ssl_cert_file => "cert-file.pem",
-              :ssl_cert_key_file => "key-file.pem",
+              :ssl_cert => @crypto.get_certificate,
+              :ssl_cert_key => @crypto.get_key,
               :headers => { 'SOAPAction' => ''}
             }
             return Savon.client(options)
-        end
-
-        def create_cert_files 
-          open("cert-file.pem", "w") do |io| io.write(@crypto.pkcs12.certificate.to_pem) end
-          open("key-file.pem", "w") do |io| io.write(@crypto.pkcs12.key.private_to_pem) end
-        end
-
-        def delete_cert_files
-          File.delete("cert-file.pem") if File.exists?("cert-file.pem")
-          File.delete("key-file.pem") if File.exists?("key-file.pem")
         end
     end 
 end
