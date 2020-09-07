@@ -2,7 +2,7 @@ require 'savon'
 
 module NemID
   class PIDCPR
-    PID_SERVICE_URL = "https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws"
+    PID_SERVICE_URL = 'https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws'
 
     def initialize(spid, cert, pass)
       @crypto = NemID::Crypto.new(cert, pass)
