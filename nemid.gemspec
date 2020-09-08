@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'nokogiri', '~> 1.11.0.rc2', '>= 1.11.0.rc2'
   spec.add_dependency 'openssl', '~> 2.2', '>= 2.2.0'
   spec.add_dependency 'xmldsig', '~> 0.6.6', '>= 0.6.6'
+  spec.add_dependency 'savon', '~> 2.12.0', '>=2.12.0'
 
   spec.metadata["allowed_push_host"] = "http://rubygems.org"
 
