@@ -82,8 +82,13 @@ pid_cpr = NemID::PIDCPR.new(
 
 pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423')
 
+# Expected result - success
+true
+
+# Expected result - failure
+false
+
 # To complete:
-# - what is the expected result?
 # - how is the error going to be handled? raising a class error?
 ```
 
