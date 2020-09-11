@@ -2,7 +2,7 @@ require 'openssl'
 
 module NemID
  class Crypto
-  
+
   def initialize(certificate, pass)
     certificate = read_file(certificate)
     @pkcs12 = read_pkcs12(certificate, pass)
@@ -21,6 +21,14 @@ module NemID
     Base64.strict_encode64(sign(data))
   end
 
+  def get_certificate
+    @pkcs12.certificate
+  end
+
+  def get_key
+    @pkcs12.key
+  end
+  
   private
   def digest(data)
     OpenSSL::Digest::SHA256.new.digest(data)
