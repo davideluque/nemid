@@ -51,16 +51,20 @@ module NemID
         @doc.user_certificate_revoked?
       end
 
-      def validate_certificate_chain
+      def valid_certificate_chain?
         @doc.validate_certificate_chain
       end
 
       def validate_response
-        validate_signature && validate_certificate_chain && 
-        !user_certificate_expired? && !user_certificate_revoked?    
-      end
+        raise InvalidSignature if not valid_signature?
+        raise InvalidCertificateChain if not valid_certificate_chain?
+        raise UserCertificateExpired if user_certificate_expired?
+        raise UserCertificateRevoked if user_certificate_revoked?
 
-      def validate_signature
+        true
+      end
+      
+      def valid_signature?
         @doc.validate_signature
       end
 
