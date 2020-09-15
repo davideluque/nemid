@@ -1,13 +1,13 @@
 module NemID
   module Errors
-    class ValidationError < ResponseError ; end
+    class ResponseValidationError < ResponseError ; end
 
-    class InvalidSignature < ValidationError ; end
+    class InvalidSignature < ResponseValidationError ; end
 
-    class InvalidCertificateChain < ValidationError ; end
+    class InvalidCertificateChain < ResponseValidationError ; end
 
-    class UserCertificateExpired < ValidationError ; end
+    class UserCertificateExpired < ResponseValidationError ; end
 
-    class UserCertificateRevoked < ValidationError ; end
+    class UserCertificateRevoked < ResponseValidationError ; end
   end
 end
