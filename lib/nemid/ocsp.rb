@@ -13,7 +13,7 @@ module NemID
 
     class NonceError < Error ; end
 
-    def self.request(subject, issuer, ca)
+    def self.request subject:, issuer:, ca:
       digest = OpenSSL::Digest::SHA1.new
       certificate_id = OpenSSL::OCSP::CertificateId.new(subject, issuer, digest)
 
@@ -44,14 +44,17 @@ module NemID
     end
 
     private
+    
+    # Returns +true+ if the certificate has been revoked or its unknown, 
+    # +false+ otherwise.
     def self.cert_status(single_response)
       case single_response.cert_status
       when OpenSSL::OCSP::V_CERTSTATUS_GOOD
-        return true
+        return false
       when OpenSSL::OCSP::V_CERTSTATUS_REVOKED
-        return false
+        return true
       when OpenSSL::OCSP::V_CERTSTATUS_UNKNOWN
-        return false
+        return true
       end
     end
 
