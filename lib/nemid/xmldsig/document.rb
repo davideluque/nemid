@@ -23,7 +23,11 @@ module NemID
       end
 
       def user_certificate_revoked?
-        !NemID::OCSP.request(@user_certificate, @intermediate_cert, @root_cert)
+        ocsp.request(
+          subject: @user_certificate,
+          issuer: @intermediate_cert,
+          ca: @root_cert
+        )
       rescue NemID::OCSP::Error
         return true
       end
@@ -57,6 +61,10 @@ module NemID
             @store.add_cert(cert)
           end
         end
+      end
+
+      def ocsp
+        @ocsp ||= NemID::OCSP
       end
 
       def x509_certificate(raw)
