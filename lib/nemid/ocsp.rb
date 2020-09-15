@@ -1,18 +1,9 @@
+require_relative 'ocsp/errors'
 require 'net/http'
 require 'uri'
 
 module NemID
   module OCSP
-    class Error < StandardError ; end
-    
-    class InvalidSignatureError < Error ; end
-
-    class NoStatusError < Error ; end
-
-    class InvalidUpdateError < Error ; end
-
-    class NonceError < Error ; end
-
     def self.request subject:, issuer:, ca:
       digest = OpenSSL::Digest::SHA1.new
       certificate_id = OpenSSL::OCSP::CertificateId.new(subject, issuer, digest)
