@@ -3,7 +3,7 @@ module NemID
     class Response
       PID_REGEX = /\APID:([0-9-]+)\Z/.freeze
       RID_REGEX = /\ARID:([0-9-]+)\Z/.freeze
-    
+
       def initialize(string)
         if string.match?(/\A[A-Za-z0-9+\/\r\n]+={0,2}\z/)
           decoded_string = Base64.decode64(string)
