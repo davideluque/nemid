@@ -43,8 +43,8 @@ nemid.client_initialization_parameters # ruby hash with signed parameters
 
 ### Authentication::Response
 
-Parse nemid response and extract user information from certificate. Right now,
-it is only possible to extract the PID (or RID).
+Parse and validate NemID response, then extract user information from certificate. 
+Right now, it is only possible to extract the PID (or RID).
 
 ```ruby
 response = NemID::Authentication::Response.new(base64_str) # Base64 string from NemID
@@ -52,6 +52,26 @@ response = NemID::Authentication::Response.new(base64_str) # Base64 string from 
 # or
 
 response = NemID::Authentication::Response.new(xml_str) # XML string from NemID
+
+# First, validate nemid response, as stated in NemID Documentation
+
+begin
+  response.validate_response
+rescue NemID::Errors::ResponseValidationError => e
+  puts e # Developer-friendly message, example: Signature is invalid.
+end
+
+# Note that response.validate_response raises exceptions instead of returning 
+# true or false, the exceptions are raised according to the order that the 
+# methods are invoked. The following methods perform the same validations 
+# and do not raise exceptions:
+
+response.valid_signature? # true
+response.valid_certificate_chain? # true
+response.user_certificate_expired? # false
+response.user_certificate_revoked? # false
+
+# If response is valid, proceed to extract user information:
 
 # Extract PID or RID
 response.extract_pid_or_rid # "PID:9208-2002-2-316380231171"
