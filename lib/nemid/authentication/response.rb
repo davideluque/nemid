@@ -43,6 +43,31 @@ module NemID
         serial_number.match?(RID_REGEX)
       end
 
+      def user_certificate_expired?
+        @doc.user_certificate_expired?
+      end
+
+      def user_certificate_revoked?
+        @doc.user_certificate_revoked?
+      end
+
+      def valid_certificate_chain?
+        @doc.validate_certificate_chain
+      end
+
+      def validate_response
+        raise NemID::Errors::InvalidSignature if not valid_signature?
+        raise NemID::Errors::InvalidCertificateChain if not valid_certificate_chain?
+        raise NemID::Errors::UserCertificateExpired if user_certificate_expired?
+        raise NemID::Errors::UserCertificateRevoked if user_certificate_revoked?
+
+        true
+      end
+      
+      def valid_signature?
+        @doc.validate_signature
+      end
+
       private
       def class_exists?(class_name)
         klass = Module.const_get(class_name)

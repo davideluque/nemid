@@ -3,6 +3,7 @@ require "nemid/version"
 require "nemid/authentication"
 require "nemid/crypto"
 require "nemid/errors"
+require "nemid/ocsp"
 require "nemid/xmldsig"
 require 'nemid/pid_cpr'
 
