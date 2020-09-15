@@ -20,11 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-This gem implements two main modules:
+This gem implements the following modules:
 
 - `Authentication:` generate client initialization parameters and response handling.
 
 - `PIDCPR:` match PID to a CPR number. Match and translation are available only to selected service providers.
+
+- `OCSP:` use this if you want to manually perform an OCSP request.
 
 ### Authentication::Parameters
 
@@ -104,6 +106,52 @@ false
 
 # To complete:
 # - how is the error going to be handled? raising a class error?
+```
+
+### OCSP
+
+An OCSP request is performed when the `.validate_response` or `.user_certificate_revoked?` methods are invoked. If you wish to perform the OCSP request yourself, to catch specific OCSP errors, you can do it this way:
+
+```ruby
+user_certificate = OpenSSL::X509::Certificate.new(raw) # User's certificate
+
+issuer = OpenSSL::X509::Certificate.new(raw) # The issuer of the user's certificate (Normally the intermediate certificate)
+
+ca = OpenSSL::X509::Certificate.new(raw) # Certificate Authority
+
+ocsp = NemID::OCSP
+ocsp.request(
+  subject: user_certificate,
+  issuer: issuer,
+  ca: ca
+) # Returns +true+ if the certificate status is revoked or unknown, +false+ if the certificate status is OK.
+
+# Catching OCSP errors:
+
+# This implementation raises the following OCSP errors, be sure to catch them so the execution of your program is not interrupted.
+
+begin
+  ocsp.request(
+    subject: user_certificate,
+    issuer: issuer,
+    ca: ca
+  )
+rescue NemID::OCSP::Error 
+  # Catches all OCSP errors
+rescue NemID::OCSP::InvalidSignatureError => e
+  # If you get a failure here you may be missing the intermediate certificates.
+  puts e # Response is not signed by a trusted certificate
+rescue NemID::OCSP::NoStatusError => e
+  # Means that we could not extract the status information for the certificate from the basic response
+  puts e # basic_response does not have the status for the certificate
+rescue NemID::OCSP::InvalidUpdateError => e
+  # A status issued in the future must be rejected.
+  puts e # this_update is in the future or next_update time has passed
+rescue NemID::OCSP::NonceError => e
+  # Adding a nonce to the request protects against replay attacks but not all CA process the nonce.
+  # Therefore, this implementation only checks if the both nonces are present and not equal
+  puts e # Nonces both present and not equal
+end
 ```
 
 ## Development
