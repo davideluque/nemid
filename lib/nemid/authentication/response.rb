@@ -56,10 +56,10 @@ module NemID
       end
 
       def validate_response
-        raise InvalidSignature if not valid_signature?
-        raise InvalidCertificateChain if not valid_certificate_chain?
-        raise UserCertificateExpired if user_certificate_expired?
-        raise UserCertificateRevoked if user_certificate_revoked?
+        raise NemID::Errors::InvalidSignature if not valid_signature?
+        raise NemID::Errors::InvalidCertificateChain if not valid_certificate_chain?
+        raise NemID::Errors::UserCertificateExpired if user_certificate_expired?
+        raise NemID::Errors::UserCertificateRevoked if user_certificate_revoked?
 
         true
       end
