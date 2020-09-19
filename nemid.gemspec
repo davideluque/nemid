@@ -10,12 +10,11 @@ Gem::Specification.new do |spec|
   #spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "https://github.com/davideluque/nemid"
   spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
 
-  spec.add_dependency 'nokogiri', '~> 1.11.0.rc2', '>= 1.11.0.rc2'
   spec.add_dependency 'openssl', '~> 2.2', '>= 2.2.0'
-  spec.add_dependency 'xmldsig', '~> 0.6.6', '>= 0.6.6'
   spec.add_dependency 'savon', '~> 2.12.0', '>=2.12.0'
+  spec.add_dependency 'xmldsig', '~> 0.6.6', '>= 0.6.6'
 
   spec.metadata["allowed_push_host"] = "http://rubygems.org"
 
