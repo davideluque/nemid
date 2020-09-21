@@ -8,96 +8,96 @@ module NemID
 
     class CAPP001Error < CAPPError 
       def initialize
-        @da = "The code app could not be enrolled due to violation of the app's restricted identity type."
-        @en = "Nøgleappen kunne ikke blive indskrevet på grund af krænkelse af app'ens begrænsede identites type."
+        @da = "Nøgleappen kunne ikke blive indskrevet på grund af krænkelse af app'ens begrænsede identites type."
+        @en = "The code app could not be enrolled due to violation of the app's restricted identity type."
         super
       end
     end
 
     class CAPP002Error < CAPPError
       def initialize
-        @da = "Your code app could not be enrolled due to violation of the suspension rules."
-        @en = "Din nøgleapp kunne ikke blive indskrevet på grund af krænkelse af suspensionsreglerne."
+        @da = "Din nøgleapp kunne ikke blive indskrevet på grund af krænkelse af suspensionsreglerne."
+        @en = "Your code app could not be enrolled due to violation of the suspension rules."
         super
       end
     end
     
     class CAPP003Error < CAPPError
       def initialize
-        @da = "Your code app could not be enrolled due to its app id is not in status active."
-        @en = "Din nøgleapp kunne ikke blive indskrevet på grund af, at dens app id ikke er i en aktiv status."
+        @da = "Din nøgleapp kunne ikke blive indskrevet på grund af, at dens app id ikke er i en aktiv status."
+        @en = "Your code app could not be enrolled due to its app id is not in status active."
         super
       end
     end
     
     class CAPP004Error < CAPPError
       def initialize
-        @da = "Your code app is suspended or revoked. Please try and update your code app."
-        @en = "Din nøgleapp er suspenderet eller spærret. Prøv at opdatere din nøgleapp."
+        @da = "Din nøgleapp er suspenderet eller spærret. Prøv at opdatere din nøgleapp."
+        @en = "Your code app is suspended or revoked. Please try and update your code app."
         super
       end
     end
     
     class CAPP006Error < CAPPError
       def initialize
-        @da = "Your code app could not be activated as it could not be found for the user who logged in."
-        @en = "Din nøgleapp kunne ikke blive aktiveret, da den ikke kunne blive fundet for brugeren der loggede ind."
+        @da = "Din nøgleapp kunne ikke blive aktiveret, da den ikke kunne blive fundet for brugeren der loggede ind."
+        @en = "Your code app could not be activated as it could not be found for the user who logged in."
         super
       end
     end
     
     class CAPP007Error < CAPPError
       def initialize
-        @da = "Your code app could not be activated as it did not have the correct status (VALIDATION_MISSING)."
-        @en = "Din nøgleapp kunne ikke blive aktiveret, da den ikke har den korrekte status (VALIDATIONS_MISSING)."
+        @da = "Din nøgleapp kunne ikke blive aktiveret, da den ikke har den korrekte status (VALIDATIONS_MISSING)."
+        @en = "Your code app could not be activated as it did not have the correct status (VALIDATION_MISSING)."
         super
       end
     end
     
     class CAPP008Error < CAPPError
       def initialize
-        @da = "Your code app could not be activated as the waiting period has not expired."
-        @en = "Din nøgleapp kunne ikke blive aktiveret, da venteperioden ikke er uløbet."
+        @da = "Din nøgleapp kunne ikke blive aktiveret, da venteperioden ikke er uløbet."
+        @en = "Your code app could not be activated as the waiting period has not expired."
         super
       end
     end
     
     class CAPP009Error < CAPPError
       def initialize
-        @da = "Your code app could not be activated as the waiting period has not expired."
-        @en = "Din nøgleapp kunne ikke blive aktiveret, da venteperioden ikke er uløbet."
+        @da = "Din nøgleapp kunne ikke blive aktiveret, da venteperioden ikke er uløbet."
+        @en = "Your code app could not be activated as the waiting period has not expired."
         super
       end
     end
     
     class CAPP010Error < CAPPError
       def initialize
-        @da = "The reset of your code app pin could not be done as the code app is not in status active."
-        @en = "Nulstilling af din nøgeleapps pin kunne ikke blive fuldført, da din nøgleapp ikke er i en aktiv status."
+        @da = "Nulstilling af din nøgeleapps pin kunne ikke blive fuldført, da din nøgleapp ikke er i en aktiv status."
+        @en = "The reset of your code app pin could not be done as the code app is not in status active."
         super
       end
     end
     
     class CAPP011Error < CAPPError
       def initialize
-        @da = "The validation of the admin action challenge failed."
-        @en = "Valideringen af admin action challenge fejlede."
+        @da = "Valideringen af admin action challenge fejlede."
+        @en = "The validation of the admin action challenge failed."
         super
       end
     end
     
     class CAPP012Error < CAPPError
       def initialize
-        @da = "Your code app could not be enrolled as the code app id does not exist."
-        @en = "Din nøgleapp kunne ikke blive indskrefvet, da dens app id ikke eksisterer."
+        @da = "Din nøgleapp kunne ikke blive indskrefvet, da dens app id ikke eksisterer."
+        @en = "Your code app could not be enrolled as the code app id does not exist."
         super
       end
     end
     
     class CAPP013Error < CAPPError
       def initialize
-        @da = "Your code app could not be enrolled due to incorrect software fingerprint or missing whitelist of software fingerprint"
-        @en = "Din nøgleapp kunne ikke blive indskrevet på grund af forkert software fingeraftryk eller manglende whitelist af software fingeraftryk."
+        @da = "Din nøgleapp kunne ikke blive indskrevet på grund af forkert software fingeraftryk eller manglende whitelist af software fingeraftryk."
+        @en = "Your code app could not be enrolled due to incorrect software fingerprint or missing whitelist of software fingerprint"
         super
       end
     end
