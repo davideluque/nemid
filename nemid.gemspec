@@ -16,8 +16,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'savon', '~> 2.12.0', '>=2.12.0'
   spec.add_dependency 'xmldsig', '~> 0.6.6', '>= 0.6.6'
 
-  spec.metadata["allowed_push_host"] = "http://rubygems.org"
-
+  spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/davideluque/nemid"
   #spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
