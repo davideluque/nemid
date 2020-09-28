@@ -30,13 +30,7 @@ module NemID
         message: build_soap_message(pid: pid, cpr: cpr)
       )
     
-      result = response.to_hash[:pid_response][:result][:pid_reply]
-      
-      if result[:status_code] == "0"
-        true
-      else
-        false
-      end
+      response.to_hash[:pid_response][:result][:pid_reply]
     end
 
     private
