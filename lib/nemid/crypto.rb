@@ -3,14 +3,13 @@ require 'openssl'
 module NemID
  class Crypto
 
-  def initialize(certificate, pass)
-    certificate = read_file(certificate)
-    @pkcs12 = read_pkcs12(certificate, pass)
-    @rsa_instance = rsa_keypair(@pkcs12, pass)
+  def initialize(cert:, key:)
+    @certificate = read_x509(cert)
+    @rsa_instance = rsa_keypair(key)
   end
 
   def base64_encoded_der_representation
-    Base64.strict_encode64(@pkcs12.certificate.to_der)
+    Base64.strict_encode64(@certificate.to_der)
   end
 
   def base64_encoded_digest_representation(data)
@@ -22,11 +21,11 @@ module NemID
   end
 
   def get_certificate
-    @pkcs12.certificate
+    @certificate
   end
 
   def get_key
-    @pkcs12.key
+    @rsa_instance
   end
   
   private
@@ -38,12 +37,12 @@ module NemID
     File.read(certificate)
   end
 
-  def read_pkcs12(certificate, pass)
-    OpenSSL::PKCS12::new(certificate, pass)
+  def read_x509(raw)
+    OpenSSL::X509::Certificate.new(raw)
   end
 
-  def rsa_keypair(pkcs12, passphrase)
-    OpenSSL::PKey::RSA.new(pkcs12.key, passphrase)
+  def rsa_keypair(raw)
+    OpenSSL::PKey::RSA.new(raw)
   end
 
   def sign(data)

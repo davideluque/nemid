@@ -28,14 +28,14 @@ This gem implements the following modules:
 
 - `OCSP:` use this if you want to manually perform an OCSP request.
 
-### Authentication::Parameters
+### Authentication::Params
 
-Generate client initialization parameters
+Generate client initialization parameters. See [here](https://github.com/davideluque/nemid#extracting-certificate-and-private-key) if you do not know how to get your certificate and private key in pem format.
 
 ```ruby
-nemid = NemID::Authentication::Parameters.new(
-  'path/to/your/voces/certificate',
-  'your_voces_certificate_password',
+nemid = NemID::Authentication::Params.new(
+  cert: 'your_voces_certificate_in_pem_format'
+  key: 'your_private_key_in_pem_format',
 )
 
 nemid.client_initialization_parameters # ruby hash with signed parameters
@@ -91,9 +91,9 @@ Match a PID to a CPR number.
 
 ```ruby
 pid_cpr = NemID::PIDCPR.new(
-  'your_service_provider_id',
-  'path/to/your/voces/certificate',
-  'your_voces_certificate_password'
+  cert: 'your_voces_certificate_in_pem_format'
+  key: 'your_private_key_in_pem_format',
+  spid: 'your_service_provider_id'
 )
 
 pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423')
@@ -153,6 +153,8 @@ rescue NemID::OCSP::NonceError => e
   puts e # Nonces both present and not equal
 end
 ```
+
+## Extracting Certificate and Private Key
 
 ## Development
 
