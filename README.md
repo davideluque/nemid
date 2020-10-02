@@ -30,7 +30,7 @@ This gem implements the following modules:
 
 ### Authentication::Params
 
-Generate client initialization parameters. See [here](https://github.com/davideluque/nemid#extracting-certificate-and-private-key) if you do not know how to get your certificate and private key in pem format.
+Generate client initialization parameters. See [here](https://github.com/davideluque/nemid#exporting-certificate-and-private-key) if you do not know how to get your certificate and private key in pem format.
 
 ```ruby
 nemid = NemID::Authentication::Params.new(
@@ -43,7 +43,7 @@ nemid.client_initialization_parameters # ruby hash with signed parameters
 
 ### Authentication::Response
 
-Parse and validate NemID response, then extract user information from certificate. As of this version, it is only possible to extract the PID (or RID).
+Parse and validate NemID response, then export user information from certificate. As of this version, it is only possible to export the PID (or RID).
 
 ```ruby
 response = NemID::Authentication::Response.new(base64_str) # Base64 string from NemID
@@ -154,7 +154,42 @@ rescue NemID::OCSP::NonceError => e
 end
 ```
 
-## Extracting Certificate and Private Key
+## Exporting Certificate and Private Key
+
+To be able to export the certificate and the key, you will be prompted the password that NemID used to encrypt the p12 archive. It should have been sent to you together with the p12 file.
+
+Exporting the certificate:
+
+```bash
+# Replace <filename.p12> with the file name of the p12 that NemID sent to you
+$ openssl pkcs12 -in <filename.p12> -clcerts -nokeys | openssl x509 -out cert.cer
+```
+
+Exporting the key:
+
+```bash
+# Replace <filename.p12> with the file name of the p12 that NemID sent to you
+$ openssl pkcs12 -in <filename.p12> -nocerts -nodes | openssl pkcs8 -nocrypt -out private_key.key
+```
+
+After you export both files, you will need to manually replace the newlines with `\n`, in both. 
+
+
+If everything went well, you should have two one-line strings that look like this (but longer):
+
+```
+-----BEGIN CERTIFICATE-----\nMIIGETCCBPmgAwIBAgIEX(a-lot-of-alphanumeric-characters-and-\n)wIBAgIE\n-----END CERTIFICATE-----\n
+
+and
+
+-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC8fX6t4Hkhxl+FM=\n-----END PRIVATE KEY-----\n
+```
+
+**Notice the trailing \n, it is very important that you include it**. 
+
+If you get an error like `(nested asn1 error)`, it means that you have done something wrong when editing the file. Try exporting again and carefully replace the newlines with \n.
+
+Keep these files private to you, use environment variables!
 
 ## Development
 
