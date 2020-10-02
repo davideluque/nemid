@@ -60,7 +60,9 @@ rescue NemID::Errors::ResponseValidationError => e
   puts e # Developer-friendly message, example: Signature is invalid.
 end
 
-# Note that response.validate_response raises exceptions instead of returning true or false, the exceptions are raised according to the order that the  methods are invoked. The following methods perform the same validations and do not raise exceptions:
+# Note that response.validate_response raises exceptions instead of returning true or false, the exceptions are 
+# raised according to the order that the  methods are invoked. The following methods perform the same validations 
+# and do not raise exceptions:
 
 response.valid_signature? # true
 response.valid_certificate_chain? # true
