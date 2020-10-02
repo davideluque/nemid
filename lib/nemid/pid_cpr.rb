@@ -4,8 +4,8 @@ module NemID
   class PIDCPR
     PID_SERVICE_URL = 'https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws'
 
-    def initialize(spid, cert, pass)
-      @crypto = NemID::Crypto.new(cert, pass)
+    def initialize(cert:, key:, spid:)
+      @crypto = NemID::Crypto.new(cert: cert, key: key)
       @spid = spid
     end
 

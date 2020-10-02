@@ -3,8 +3,8 @@ require 'date'
 module NemID
   module Authentication
     class Params
-      def initialize(certificate, pass)
-        @nemid_crypto = NemID::Crypto.new(certificate, pass)
+      def initialize(cert:, key:)
+        @nemid_crypto = NemID::Crypto.new(cert: cert, key: key)
       end
   
       def client_initialization_parameters
