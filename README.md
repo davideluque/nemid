@@ -93,7 +93,7 @@ Match a PID to a CPR number.
 
 ```ruby
 pid_cpr = NemID::PIDCPR.new(
-  cert: 'your_voces_certificate_in_pem_format'
+  cert: 'your_voces_certificate_in_pem_format',
   key: 'your_private_key_in_pem_format',
   spid: 'your_service_provider_id'
 )
