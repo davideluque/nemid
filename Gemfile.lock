@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nemid (0.1.0)
+    nemid (0.2.0)
       openssl (~> 2.2, >= 2.2.0)
       savon (~> 2.12.0, >= 2.12.0)
       xmldsig (~> 0.6.6, >= 0.6.6)
