@@ -34,7 +34,7 @@ Generate client initialization parameters. See [here](https://github.com/davidel
 
 ```ruby
 nemid = NemID::Authentication::Params.new(
-  cert: 'your_voces_certificate_in_pem_format'
+  cert: 'your_voces_certificate_in_pem_format',
   key: 'your_private_key_in_pem_format',
 )
 
