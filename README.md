@@ -99,10 +99,10 @@ pid_cpr = NemID::PIDCPR.new(
 pid_cpr.match(pid: '9208-2002-2-316380231171', cpr: '2205943423')
 
 # Expected result - success
-true
+{:cpr=>"2205943423", :pid=>"9208-2002-2-316380231171", :id=>nil, :redir_url=>nil, :status_code=>"0", :status_text_dk=>"OK", :status_text_uk=>"OK"}
 
-# Expected result - failure
-false
+# Expected result - failure ( status_code and status_text varies on error occuring )
+{:cpr=>"123", :pid=>"9208-2002-2-316380231171", :id=>nil, :redir_url=>nil, :status_code=>"1", :status_text_dk=>"CPR svarer ikke til PID", :status_text_uk=>"CPR does not match PID"}
 
 # To complete:
 # - how is the error going to be handled? raising a class error?
