@@ -2,7 +2,6 @@ require 'savon'
 
 module NemID
   class PIDCPR
-    PID_SERVICE_URL = 'https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws'
 
     def initialize(cert:, key:, spid:)
       @crypto = NemID::Crypto.new(cert: cert, key: key)
@@ -46,11 +45,20 @@ module NemID
       }
     end
 
+    def pid_service_url
+      case NemID.configuration.env
+      when 'production', 'staging'
+        'https://pidws.certifikat.dk/pid_serviceprovider_server/pidws/'
+      else
+        'https://pidws.pp.certifikat.dk/pid_serviceprovider_server/pidws'
+      end
+    end
+
     def soap_client
       options = {
-        :wsdl => "#{PID_SERVICE_URL}?WSDL",
+        :wsdl => "#{pid_service_url}?WSDL",
         :soap_version => 1,
-        :endpoint => PID_SERVICE_URL,
+        :endpoint => pid_service_url,
         :convert_request_keys_to => :none,
         :ssl_cert => @crypto.get_certificate,
         :ssl_cert_key => @crypto.get_key,
