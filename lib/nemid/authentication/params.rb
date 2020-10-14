@@ -43,7 +43,7 @@ module NemID
       def unsigned_params
         {
           "CLIENTFLOW": "OCESLOGIN2",
-          "ENABLE_AWAITING_APP_APPROVAL_EVENT": "true",
+          "ENABLE_AWAITING_APP_APPROVAL_EVENT": "TRUE",
           "SP_CERT": sp_cert,
           "TIMESTAMP": DateTime.now.new_offset(0).strftime('%F %T%z'),
         }
