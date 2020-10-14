@@ -1,6 +1,6 @@
 module NemID
   class Configuration
-    attr_accessor :env, :oces_certificate, :private_key, :spid
+    attr_accessor :env, :oces_cert, :private_key, :spid
 
     def initialize
       @env = default_for_env
