@@ -18,6 +18,31 @@ Or install it yourself as:
 
     $ gem install nemid
 
+## Configuration
+
+This gem can be configured through the following block:
+
+```ruby
+NemID.configure do |config|
+  # NemID has two URLs to call the PID-CPR service. The env configuration determines 
+  # which should be used. Production URL (PR) is used when the value is 'production' or
+  # 'staging'. Other cases will use the pre-production (PP) URL.
+  # Defaults to rails environment (if defined), to RACK_ENV, or to 'development'
+  config.env = "production" 
+  
+  # Your OCES Certificate in PEM format. 
+  config.oces_cert = "abc"
+   
+  # Your Private Key in PEM format.
+  config.private_key = "def"
+  
+  # Your SPID
+  config.spid = "ghi"
+end
+```
+
+Check the end of this readme to know how to get your OCES certificate and Private Key in PEM format.
+
 ## Usage
 
 This gem implements the following modules:
