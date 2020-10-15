@@ -17,12 +17,12 @@ module NemID
     @configuration ||= Configuration.new
   end
 
-  def self.reset
-    @configuration = Configuration.new
-  end
-
   def self.configure
     yield(configuration)
+  end
+
+  def self.reset
+    @configuration = Configuration.new
   end
 
   class Error < StandardError; end
