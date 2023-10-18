@@ -1,6 +1,11 @@
 # NemID
 
-NemID is a Ruby gem that makes it easy to integrate the NemID JavaScript client with ruby applications.
+NemID is a Ruby gem integrating the NemID JavaScript client with Ruby applications.
+
+
+## Note
+
+NemID is expected to be phased out on October 31st, 2023 <sup>[1](https://www.nemid.nu/dk-en/about_nemid/nemid_will_soon_close.html)</sup>. The repository is therefore archived.
 
 ## Installation
 
